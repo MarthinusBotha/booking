@@ -5,6 +5,11 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
+use App\Http\Controllers\{
+    DashboardController,
+    BookingItemController,
+};
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,18 +21,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [BookingItemController::class, 'bookingItems'])->name('bookingItems');
+Route::get('/make-booking/{id}', [BookingItemController::class, 'makeBooking'])->name('make-booking');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'viewBookings'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard/view-booking/{id}', [DashboardController::class, 'viewBooking'])->middleware(['auth', 'verified'])->name('view-booking');
+Route::put('/dashboard/update-booking', [DashboardController::class, 'updateBooking'])->middleware(['auth', 'verified'])->name('update-booking');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
