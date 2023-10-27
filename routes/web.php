@@ -23,6 +23,7 @@ use App\Http\Controllers\{
 
 Route::get('/', [BookingItemController::class, 'bookingItems'])->name('bookingItems');
 Route::get('/make-booking/{id}', [BookingItemController::class, 'makeBooking'])->name('make-booking');
+Route::post('/store-booking', [BookingItemController::class, 'storeBooking'])->name('store-booking');
 
 Route::get('/dashboard', [DashboardController::class, 'viewBookings'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/dashboard/view-booking/{id}', [DashboardController::class, 'viewBooking'])->middleware(['auth', 'verified'])->name('view-booking');

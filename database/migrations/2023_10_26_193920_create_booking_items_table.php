@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name', 100);
             $table->text('description');
-            $table->unsignedInteger('guests');
             $table->decimal('price', 10, 2);
+            $table->unsignedTinyInteger('guests');
             $table->unsignedTinyInteger('bedrooms');
             $table->unsignedTinyInteger('bathrooms');
             $table->unsignedTinyInteger('storeys')->default(1);
